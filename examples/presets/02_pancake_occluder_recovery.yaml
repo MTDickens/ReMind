@@ -1,0 +1,34 @@
+# Copyright 2026 Applied Intuition, Inc.
+# SPDX-License-Identifier: CC-BY-NC-4.0
+
+name: pancake_occluder_recovery
+website_case: v2_occluder_18_pancake_batter_pour
+task: i2v
+input_image: ../assets/pancake_batter_pour.png
+prompt: >-
+  A thick, pale batter is poured from a scoop into a hot frying pan, forming a high, coiled mound at the start. As more batter flows, the stream lands on the mound and the mixture spreads outward, flattening against the pan and creating concentric folds and swirls that ripple away from center. Midway the pouring narrows and the batter continues to flow into the center while the existing layers slump and smooth under their own weight. By the end the batter has spread into a broad, low disc filling most of the pan surface, the central swirl partly blended into a smoother pancake-like layer, and the pouring tool has been withdrawn. The motion shows viscous flow, impact, and lateral spreading of the liquid batter.
+seed: 20261418
+num_frames: 81
+height: 480
+width: 832
+fps: 16
+chunk_size: 3
+control:
+  kind: occluder
+  recovery_chunks: 2
+  params:
+    rgba_path: brown_cardboard_box/5025657_rgba.png
+    enter_side: left
+    exit_side: right
+    t_enter_start: 24
+    t_enter_end: 30
+    t_hold_start: 30
+    t_hold_end: 42
+    t_exit_start: 42
+    t_exit_end: 48
+    peak_scale: 2.15606490878894
+    force_rect_mask: true
+  meta:
+    label: brown cardboard box
+    caption: A brown cardboard box with a rectangular shape, placed on a paved surface.
+    slug: brown_cardboard_box

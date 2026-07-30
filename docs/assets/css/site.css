@@ -1,0 +1,275 @@
+/* Copyright 2026 Applied Intuition, Inc.
+ * SPDX-License-Identifier: CC-BY-NC-4.0 */
+
+/* ReMind candidate-review additions. Shared components remain in styles.css. */
+
+.review-hero { padding-bottom: var(--space-5); }
+.review-hero .hero-intro { max-width: 980px; }
+
+.selection-shell {
+  position: sticky;
+  top: calc(var(--header-h) + var(--header-gap) + var(--space-1));
+  z-index: 4;
+}
+
+.selection-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  padding: var(--space-2);
+  border: 1px solid var(--gray-line);
+  border-radius: var(--radius);
+  background: var(--white);
+  box-shadow: var(--shadow);
+  font-family: var(--font-sans);
+  font-size: var(--fs-meta);
+}
+
+.selection-actions { display: flex; gap: var(--space-1); flex-wrap: wrap; }
+.selection-actions .btn { margin: 0; }
+.selection-status { color: var(--gray); margin-left: auto; }
+
+.review-section { border-top: 1px solid var(--gray-line); }
+.review-section:nth-of-type(even) { background: var(--gray-soft); }
+.section-heading { max-width: var(--reading); margin-bottom: var(--space-4); }
+.section-heading h2 { margin-bottom: var(--space-1); }
+.section-heading p { margin: 0; }
+
+.review-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-3);
+}
+
+.review-grid:empty::before {
+  content: "Loading candidates…";
+  display: block;
+  color: var(--gray);
+  font-family: var(--font-sans);
+  font-size: var(--fs-meta);
+}
+
+.review-subgroup {
+  grid-column: 1 / -1;
+  margin: var(--space-2) 0 0;
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--gray-line);
+}
+
+.review-subgroup:first-child { margin-top: 0; border-top: 0; padding-top: 0; }
+
+.review-card {
+  min-width: 0;
+  padding: var(--space-2);
+  border: 1px solid var(--gray-line);
+  border-radius: var(--radius);
+  background: var(--white);
+}
+
+.review-card.is-selected { border-top: 3px solid var(--blue); }
+
+.candidate-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2);
+  margin-bottom: var(--space-1);
+}
+
+.candidate-head h3 {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--fs-meta);
+  overflow-wrap: anywhere;
+}
+
+.pick-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex: 0 0 auto;
+  font-family: var(--font-sans);
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.pick-label input { accent-color: var(--blue); width: 1rem; height: 1rem; }
+
+.badge-row { display: flex; flex-wrap: wrap; gap: var(--space-1); margin-bottom: var(--space-2); }
+.meta-badge {
+  border: 1px solid var(--gray-line);
+  border-radius: 999px;
+  padding: 0.2em 0.65em;
+  color: var(--gray);
+  font-family: var(--font-sans);
+  font-size: var(--fs-eyebrow);
+  line-height: 1.4;
+}
+
+.review-card .media-frame { aspect-ratio: 832 / 480; box-shadow: none; }
+.review-card video { cursor: pointer; }
+
+.candidate-model-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-2);
+}
+
+.candidate-model { min-width: 0; margin: 0; }
+.candidate-model figcaption {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) 0 0;
+  border: 0;
+}
+
+.model-name { grid-column: 1 / -1; margin: 0; }
+.model-choice { color: var(--ink); }
+.model-open { font-family: var(--font-sans); font-size: var(--fs-meta); }
+
+.review-actions { display: flex; gap: var(--space-1); margin-top: var(--space-2); flex-wrap: wrap; }
+.review-actions .btn { padding: 0.45em 0.8em; }
+
+.candidate-details {
+  margin-top: var(--space-2);
+  border-top: 1px solid var(--gray-line);
+  padding-top: var(--space-1);
+  font-family: var(--font-sans);
+  font-size: var(--fs-meta);
+}
+
+.candidate-details summary { color: var(--gray); cursor: pointer; }
+.candidate-details p { overflow-wrap: anywhere; }
+.candidate-source { color: var(--gray); }
+
+.compare-dialog {
+  width: min(1480px, 96vw);
+  max-height: 94vh;
+  padding: var(--space-3);
+  border: 1px solid var(--gray-line);
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--ink);
+  box-shadow: var(--shadow-lift);
+}
+
+.compare-dialog::backdrop { background: var(--dark-mat); opacity: 0.85; }
+.dialog-head { display: flex; justify-content: space-between; gap: var(--space-2); align-items: flex-start; }
+.dialog-head h2 { margin-top: 0; font-size: var(--fs-h3); overflow-wrap: anywhere; }
+.compare-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-2); }
+.compare-cell { margin: 0; min-width: 0; }
+.compare-cell figcaption { text-align: center; border: 0; padding: var(--space-1); }
+.compare-cell .media-frame { aspect-ratio: 832 / 480; }
+
+.no-script { padding-block: var(--space-4); color: var(--gray); }
+.footer-note { max-width: 32ch; }
+
+@media (max-width: 860px) {
+  .selection-shell { position: static; }
+  .selection-status { width: 100%; margin-left: 0; }
+  .review-grid, .compare-grid { grid-template-columns: 1fr; }
+  .candidate-head { flex-direction: column-reverse; }
+}
+
+/* Final ReMind project page. */
+.project-hero { padding-bottom: var(--space-6); }
+.project-hero .hero-intro { max-width: 68rem; }
+.project-hero h1 { max-width: 25ch; }
+.project-hero .lead { max-width: 64ch; }
+
+.showcase-section,
+.method-section,
+.citation-section { border-top: 1px solid var(--gray-line); }
+.section-soft { background: var(--gray-soft); }
+
+.citation-section .bibtex { margin-top: var(--space-3); }
+
+.section-intro { max-width: 58rem; margin-bottom: var(--space-4); }
+.section-intro h2 { max-width: 22ch; margin-bottom: var(--space-2); }
+.section-intro .lead { max-width: 62ch; margin: 0; }
+
+.showcase-block + .showcase-block { margin-top: var(--space-5); }
+.showcase-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 0.6fr) minmax(0, 1.4fr);
+  gap: var(--space-3);
+  align-items: baseline;
+  margin-bottom: var(--space-2);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--gray-line);
+}
+.showcase-heading h3,
+.showcase-heading p { margin: 0; }
+.showcase-heading p { color: var(--gray); max-width: 62ch; }
+
+.video-grid {
+  display: grid;
+  gap: var(--space-1);
+  align-items: start;
+}
+.video-grid--6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.video-grid--5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.video-grid--4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+.showcase-tile { min-width: 0; margin: 0; }
+.showcase-tile .media-frame {
+  aspect-ratio: 832 / 480;
+  border-radius: calc(var(--radius) / 2);
+  box-shadow: none;
+}
+.showcase-tile figcaption {
+  min-height: 2.4rem;
+  padding: 0.45rem 0.15rem 0;
+  border: 0;
+  color: var(--gray);
+  line-height: 1.25;
+}
+.showcase-tile--bare .media-frame { margin-bottom: 0; }
+.tile-label {
+  font-family: var(--font-sans);
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.release-note {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--gray-line);
+}
+.release-note p { max-width: 64ch; margin: 0; }
+.release-note .btn { flex: 0 0 auto; }
+
+@media (max-width: 1100px) {
+  .video-grid--6,
+  .video-grid--5 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .video-grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 700px) {
+  .project-hero { padding-bottom: var(--space-5); }
+  .showcase-heading { grid-template-columns: 1fr; gap: var(--space-1); }
+  .video-grid--6,
+  .video-grid--5,
+  .video-grid--4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .release-note { align-items: flex-start; flex-direction: column; }
+}
+
+@media (max-width: 440px) {
+  .video-grid--6,
+  .video-grid--5,
+  .video-grid--4 { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-page video { animation: none; }
+}

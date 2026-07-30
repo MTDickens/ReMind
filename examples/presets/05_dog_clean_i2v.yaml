@@ -1,0 +1,17 @@
+# Copyright 2026 Applied Intuition, Inc.
+# SPDX-License-Identifier: CC-BY-NC-4.0
+
+name: dog_clean_i2v
+website_case: cleanx2_helios_00_dog_tail_wag_bark
+task: i2v
+input_image: ../assets/dog_tail_wag_bark.png
+prompt: >-
+  A small dog paces and shifts its weight across a living-room floor in front of a shelving unit. At the start it stands with a fairly level back, head turned slightly to the right, then begins a series of low, quick steps: hindquarters lower and tail lifting as it crouches and pushes off. Midway the dog bends its legs and leans forward, front paws skidding slightly as it executes a rapid lateral motion and turns its head. By the end the animal is more hunched, tail up and blurred from wagging, with its body rotated and moved toward the right side of the scene. The shelves and objects behind remain static throughout.
+seed: 20261700
+num_frames: 81
+height: 480
+width: 832
+fps: 16
+chunk_size: 3
+control:
+  kind: clean

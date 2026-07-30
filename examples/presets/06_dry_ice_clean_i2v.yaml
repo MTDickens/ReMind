@@ -1,0 +1,17 @@
+# Copyright 2026 Applied Intuition, Inc.
+# SPDX-License-Identifier: CC-BY-NC-4.0
+
+name: dry_ice_clean_i2v
+website_case: cleanx2_helios_08_dry_ice_fog_bowl
+task: i2v
+input_image: ../assets/dry_ice_fog_bowl.png
+prompt: >-
+  A small clear glass initially holds a pale yellow liquid while thick white vapor and frothy foam curl and billow above the rim. The foam rapidly grows, rolling into larger lobes that spill and drip over the glass edge; wisps of vapor detach and fall. Midway the foam forms a dense cap, pressing down and streaking along the glass sides while the interior liquid becomes visually darker and more amber as the foam collapses and mixes. By the end the cup is largely enveloped by a soft, blobby white foam that has overflowed into rounded puddles on the table; amber liquid fills most of the vessel and streams of foam run down and pool at the base. The sequence shows expansion, overflow, deformation, and runoff of bubbly, wet material.
+seed: 20261708
+num_frames: 81
+height: 480
+width: 832
+fps: 16
+chunk_size: 3
+control:
+  kind: clean

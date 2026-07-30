@@ -1,0 +1,36 @@
+# Copyright 2026 Applied Intuition, Inc.
+# SPDX-License-Identifier: CC-BY-NC-4.0
+
+# Wan2.1-T2V-1.3B with ReMind camera/time RoPE and chunk-local text context.
+# Base-model swap analog of inference_wan22_5b_ccrope_full_native48_chunktext.yaml:
+# pure-I2V 16-channel patch embedding, loading the RAW Wan2.1-T2V-1.3B base
+# weights (in_dim 16 native, so patch_embedding is loaded as-is).
+denoising_step_list:
+- 1000
+- 750
+- 500
+- 250
+warp_denoising_step: true
+num_train_timestep: 1000
+timestep_shift: 5.0
+guidance_scale: 3.0
+negative_prompt: 'blurry, low quality, worst quality, ugly, deformed, watermark, text, static'
+num_frame_per_block: 3
+
+wan_model_folder: "./checkpoints/Wan2.1-T2V-1.3B"
+
+generator:
+  model_name: Wan2.1-T2V-1.3B
+  in_dim: 16
+  prope_temporal_dim: 8
+  cc_rope_mode: cc_full
+  cc_phase_slots: 16
+  degradation_control_dim: 0
+  weight_list:
+    - path: "./checkpoints/Wan2.1-T2V-1.3B"
+      switch_name: true
+  filter_list:
+    - "img_emb."
+    - "cross_attn.k_img"
+    - "cross_attn.v_img"
+    - "cross_attn.norm_k_img"

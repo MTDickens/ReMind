@@ -1,0 +1,34 @@
+# Copyright 2026 Applied Intuition, Inc.
+# SPDX-License-Identifier: CC-BY-NC-4.0
+
+name: latte_occluder_recovery
+website_case: v2_occluder_06_latte_art_espresso
+task: i2v
+input_image: ../assets/latte_art_espresso.png
+prompt: >-
+  An espresso machine steadily pours into a short glass cup: at the start the cup shows a dark coffee base topped by a thin crema disc with latte-art. As the pour continues a narrow stream and occasional droplet fall from the spout into the center, causing concentric ripples and a swirling pattern in the crema. Midway the light-colored foam layer grows and spreads outward, covering more of the darker coffee underneath. By the end the foam has built up into a slightly domed, glossy surface that nearly reaches the rim while the darker liquid is largely hidden beneath; the falling stream momentarily forms a thin column that contacts and feeds the expanding foam. The scene shows pouring, surface deformation, spreading foam, and gentle mixing of layers.
+seed: 20261406
+num_frames: 81
+height: 480
+width: 832
+fps: 16
+chunk_size: 3
+control:
+  kind: occluder
+  recovery_chunks: 2
+  params:
+    rgba_path: brown_cardboard_box/4498122_rgba.png
+    enter_side: right
+    exit_side: left
+    t_enter_start: 24
+    t_enter_end: 30
+    t_hold_start: 30
+    t_hold_end: 42
+    t_exit_start: 42
+    t_exit_end: 48
+    peak_scale: 1.936525520330624
+    force_rect_mask: true
+  meta:
+    label: brown cardboard box
+    caption: A brown cardboard box with flaps open, made of corrugated material, showing its rectangular shape.
+    slug: brown_cardboard_box

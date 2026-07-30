@@ -1,0 +1,14 @@
+ReMind
+Copyright 2026 Applied Intuition, Inc.
+
+This product includes software developed by the Alibaba Wan Team and released
+under the Apache License 2.0.
+
+Copyright 2024-2025 The Alibaba Wan Team Authors. All rights reserved.
+
+The Wan license is included in LICENSES/WAN-APACHE-2.0.txt. Modified Wan files
+carry prominent Applied Intuition modification notices in their source headers.
+
+This product includes PRoPE camera positional-encoding code released under the
+MIT License. Its original notice is retained in prope/camera_rope.py and its
+license is included in LICENSES/PROPE-MIT.txt.

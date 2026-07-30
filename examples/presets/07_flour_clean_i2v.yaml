@@ -1,0 +1,17 @@
+# Copyright 2026 Applied Intuition, Inc.
+# SPDX-License-Identifier: CC-BY-NC-4.0
+
+name: flour_clean_i2v
+website_case: cleanx2_helios_14_flour_sugar_pour
+task: i2v
+input_image: ../assets/flour_sugar_pour.png
+prompt: >-
+  A fine white granular material is being poured onto a shallow wooden tray, forming a conical pile that steadily grows. At the start a modest mound sits on the tray while a diffuse stream of grains falls into its center. As pouring continues the apex rises and the slope steepens; individual grains bounce outward on impact, creating a scattered ring of particles across the tray. Intermittently a larger compact clump falls through the stream and strikes near the summit, causing short-lived sprays of grains that roll down the pile. By the end the heap is noticeably taller and broader, with more grains spread along the tray edges and a concentrated falling mass suspended briefly above the peak. The motion is dominated by continuous inflow, impacts, and small granular avalanches down the slopes.
+seed: 20261714
+num_frames: 81
+height: 480
+width: 832
+fps: 16
+chunk_size: 3
+control:
+  kind: clean

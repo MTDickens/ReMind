@@ -1,0 +1,19 @@
+# Copyright 2026 Applied Intuition, Inc.
+# SPDX-License-Identifier: CC-BY-NC-4.0
+
+name: slime_stretch_camera_pan_v2v
+website_case: v2_camera_11_pan_yaw_8dir_009333_helios_taxonomy_broad_physics_v1_final_10x8_
+task: v2v
+input_video: ../assets/slime_stretch_prefix_21f.mp4
+seed_latent_frames: 6
+prompt: >-
+  A glossy, viscous yellow liquid is poured onto a white flat surface, forming a small spiraled mound that grows as more material lands at the center. At the start a continuous vertical thread feeds into a shallow swirl; as pouring continues the thread narrows and the swirl builds concentric ridges and a small peaked tip. Midway the incoming filament sits into the growing mound and the pile becomes taller and slightly spreads outward, with smooth, reflective highlights on the curved surface. By the end the thread is gone and the liquid has settled into a rounded, domed puddle with a smoothed top and visible swirl pattern where new material coalesced and flowed into the pool. Contacts are adhesive and the material behaves like a viscous fluid, deforming and spreading under its own weight.
+seed: 20261311
+num_frames: 81
+height: 480
+width: 832
+fps: 16
+chunk_size: 3
+control:
+  kind: camera
+  trajectory: ../assets/slime_stretch_camera.npz

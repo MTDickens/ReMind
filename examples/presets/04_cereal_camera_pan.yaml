@@ -1,0 +1,18 @@
+# Copyright 2026 Applied Intuition, Inc.
+# SPDX-License-Identifier: CC-BY-NC-4.0
+
+name: cereal_camera_pan
+website_case: v2_camera_17_pan_yaw_8dir_001075_helios_taxonomy_broad_physics_v1_final_10x8_
+task: i2v
+input_image: ../assets/cereal_bowl_pour.png
+prompt: >-
+  A steady stream of small brown seeds is poured onto a shallow plate lined with a white paper layer, building a growing conical heap at center. At the start there is a thin, low layer of seeds spread across the paper; as pouring continues the falling grains strike the pile, bounce and slide outward, and accumulate into a taller, denser mound. Midway the central peak rises while impacts send individual seeds hopping and rolling to form a shoulder and a low rim at the plate edge. By the end the flow produces a pronounced central cone with scattered grains around its base; repeated collisions compact the pile and increase lateral scatter, while the falling stream remains above the apex feeding the mound.
+seed: 20261317
+num_frames: 81
+height: 480
+width: 832
+fps: 16
+chunk_size: 3
+control:
+  kind: camera
+  trajectory: ../assets/cereal_bowl_pour_camera.npz

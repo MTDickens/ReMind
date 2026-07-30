@@ -1,0 +1,38 @@
+# Copyright 2026 Applied Intuition, Inc.
+# SPDX-License-Identifier: CC-BY-NC-4.0
+
+--extra-index-url https://download.pytorch.org/whl/cu128
+
+torch==2.7.0+cu128
+torchvision==0.22.0+cu128
+transformers>=4.41,<5
+tokenizers>=0.20
+accelerate>=0.27
+diffusers>=0.27
+peft>=0.17,<0.20
+
+av>=12
+decord>=0.6
+imageio>=2.28
+imageio-ffmpeg>=0.5.1
+opencv-python>=4.8
+pillow>=10
+matplotlib>=3.7
+
+numpy<2
+scipy>=1.10
+einops>=0.7
+easydict>=1.9
+omegaconf>=2.3
+packaging>=23
+pyyaml>=6
+regex>=2024.5
+safetensors>=0.4
+sentencepiece>=0.2.1
+timm>=0.9
+
+filelock>=3.12
+ftfy>=6
+huggingface-hub>=0.20
+requests>=2.31
+tqdm>=4.66

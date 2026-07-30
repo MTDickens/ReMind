@@ -1,0 +1,37 @@
+# Copyright 2026 Applied Intuition, Inc.
+# SPDX-License-Identifier: CC-BY-NC-4.0
+
+# Wan2.2-TI2V-5B with ReMind camera/time RoPE and chunk-local text context.
+denoising_step_list:
+- 1000
+- 750
+- 500
+- 250
+warp_denoising_step: true
+num_train_timestep: 1000
+timestep_shift: 5.0
+guidance_scale: 3.0
+negative_prompt: 'blurry, low quality, worst quality, ugly, deformed, watermark, text, static'
+num_frame_per_block: 3
+
+wan_model_folder: "./checkpoints/Wan2.2-TI2V-5B"
+text_encoder_model_folder: "./checkpoints/Wan2.2-TI2V-5B"
+vae_model_folder: "./checkpoints/Wan2.2-TI2V-5B"
+
+generator:
+  model_name: Wan2.2-TI2V-5B
+  model_type: ti2v
+  in_dim: 48
+  out_dim: 48
+  prope_temporal_dim: 8
+  cc_rope_mode: cc_full
+  cc_phase_slots: 16
+  degradation_control_dim: 0
+  weight_list:
+    - path: "./checkpoints/Wan2.2-TI2V-5B"
+      switch_name: true
+  filter_list:
+    - "img_emb."
+    - "cross_attn.k_img"
+    - "cross_attn.v_img"
+    - "cross_attn.norm_k_img"

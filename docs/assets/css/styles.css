@@ -1,0 +1,782 @@
+/* Copyright 2026 Applied Intuition, Inc.
+ * SPDX-License-Identifier: CC-BY-NC-4.0 */
+
+/* ==========================================================================
+   Research Website Template — Applied Intuition brand design system
+   ---------------------------------------------------------------------------
+   The house style: a white, editorial page that would sit comfortably as a
+   full-page ad for a top research lab in *Science* or *Nature*. The work is the
+   hero; the design gets out of its way. See STYLE.md for the full contract.
+
+   Type   Applied Sans Display (headlines/numbers), Applied Sans Text (UI/labels),
+          XCharter serif (running prose).
+   Color  Applied Blue #006CFA — the ONE accent — over ink #111 and grays.
+   Motifs black-square eyebrow, ALL-CAPS mono eyebrows, blue caption labels,
+          hairline rules, ~720px reading measure, full-bleed figures.
+
+   This file is the shared core. DO NOT fork or hard-code values it already
+   tokenizes — put per-site overrides in site.css, built only from these tokens.
+   ========================================================================== */
+
+/* ----- Fonts (vendored, local) ------------------------------------------ */
+@font-face {
+  font-family: "Applied Sans Display";
+  src: url("../fonts/AppliedSansDisplay-Bold.ttf") format("truetype");
+  font-weight: 700; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Applied Sans Display";
+  src: url("../fonts/AppliedSansDisplay-SemiBold.ttf") format("truetype");
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Applied Sans Text";
+  src: url("../fonts/AppliedSansText-Regular.ttf") format("truetype");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Applied Sans Text";
+  src: url("../fonts/AppliedSansText-Italic.ttf") format("truetype");
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "Applied Sans Text";
+  src: url("../fonts/AppliedSansText-SemiBold.ttf") format("truetype");
+  font-weight: 600; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "Applied Sans Text";
+  src: url("../fonts/AppliedSansText-SemiBoldItalic.ttf") format("truetype");
+  font-weight: 600; font-style: italic; font-display: swap;
+}
+@font-face {
+  font-family: "XCharter";
+  src: url("../fonts/XCharter-Roman.otf") format("opentype");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "XCharter";
+  src: url("../fonts/XCharter-Italic.otf") format("opentype");
+  font-weight: 400; font-style: italic; font-display: swap;
+}
+
+/* ----- Design tokens ----------------------------------------------------- */
+:root {
+  /* brand color — Applied Blue is the ONLY accent */
+  --blue: #006CFA;
+  --blue-dark: #0052bd;        /* AppliedBlue!70!black, approx */
+  --blue-muted: #3d7fc4;       /* AppliedBlue!75!gray, approx */
+  --blue-wash: #eef4ff;        /* light blue surface */
+  --blue-wash-2: #e0ecff;
+  --ink: #111111;
+  --gray: #767676;
+  --gray-line: #e4e4e4;
+  --gray-soft: #f6f7f9;
+  --white: #ffffff;
+  --dark-mat: #0d1117;         /* the quiet dark behind video/figures */
+
+  /* ---- Chart series palette --------------------------------------------
+     The house rule is ONE accent. In charts the *hero* series is blue; the
+     rest are inks/grays, told apart by dash pattern (lines), marker shape
+     (scatter), or hatch (bars/areas) — NOT by hue. This stays on-brand and
+     survives greyscale printing. Mirrored in assets/js/charts.js. */
+  --series-hi: #006CFA;
+  --series-1: #1f2937;
+  --series-2: #6b7280;
+  --series-3: #9aa3af;
+  --series-4: #c3c9d2;
+  /* sequential blue ramp — for donut wedges / ordered composition */
+  --seq-1: #003a86; --seq-2: #0052bd; --seq-3: #006CFA;
+  --seq-4: #4d97fb; --seq-5: #99c3fd; --seq-6: #cfe1fe;
+  /* OPTIONAL categorical palette. Breaks the one-accent rule — use only when
+     you truly have many peer series and no single hero. Prefer the above. */
+  --cat-1: #006CFA; --cat-2: #e8710a; --cat-3: #12a594;
+  --cat-4: #8b5cf6; --cat-5: #d6409f; --cat-6: #eab308;
+
+  /* type */
+  --font-display: "Applied Sans Display", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Applied Sans Text", "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "XCharter", Georgia, "Times New Roman", serif;
+  --font-mono: "SFMono-Regular", "JetBrains Mono", Menlo, Consolas, monospace;
+
+  /* type scale */
+  --fs-eyebrow: 0.72rem;
+  --fs-meta: 0.82rem;
+  --fs-body: 1.0625rem;        /* ~17px reading */
+  --fs-lead: 1.3rem;
+  --fs-h3: 1.18rem;
+  --fs-h2: 2.2rem;
+  --fs-title: clamp(2.05rem, 5vw, 3.6rem);
+
+  /* spacing */
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 1.5rem;
+  --space-4: 2.5rem;
+  --space-5: 4rem;
+  --space-6: 6rem;
+
+  /* layout */
+  --reading: 720px;
+  --wide: 1280px;
+  --header-h: 60px;
+  --header-gap: 14px;          /* inset of the floating header from the viewport edge */
+
+  --radius: 10px;
+  --shadow: 0 1px 2px rgba(17,17,17,.04), 0 8px 28px rgba(17,17,17,.07);
+  --shadow-lift: 0 2px 6px rgba(17,17,17,.06), 0 18px 48px rgba(0,108,250,.10);
+}
+
+/* ----- Reset / base ------------------------------------------------------ */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--header-h) + var(--header-gap) + 16px); }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+body {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: var(--fs-body);
+  line-height: 1.62;
+  color: var(--ink);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+img, svg { max-width: 100%; height: auto; }
+a { color: var(--blue); text-decoration: none; }
+a:hover { text-decoration: underline; }
+strong { font-weight: 600; }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; border-radius: 3px; }
+
+/* skip link for keyboard users */
+.skip-link {
+  position: absolute; left: -9999px; top: 0; z-index: 100;
+  background: var(--blue); color: #fff; padding: 0.6em 1em;
+  font-family: var(--font-sans); font-size: var(--fs-meta); border-radius: 0 0 8px 0;
+}
+.skip-link:focus { left: 0; }
+
+/* ----- Layout primitives ------------------------------------------------- */
+.reading { max-width: var(--reading); margin-inline: auto; padding-inline: 24px; }
+.wide { max-width: var(--wide); margin-inline: auto; padding-inline: 24px; }
+/* full-bleed band for large diagrams that earn the extra width */
+.bleed { width: min(1680px, 96vw); margin-inline: auto; padding-inline: 24px; }
+
+/* Figure-and-text two-column layout (magazine rhythm). The figure column is the
+   wider one so diagrams stay legible; .split--rev flips text and figure sides. */
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  gap: clamp(1.5rem, 4vw, var(--space-5));
+  align-items: center;
+}
+.split--rev { grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.82fr); }
+/* extra separation between a wide table and its adjacent title/text */
+.split--airy { gap: clamp(2.5rem, 7vw, 6rem); }
+.split--rev .split-text { order: 2; }
+.split-text > :first-child { margin-top: 0; }
+.split .figure, .split .table-wrap, .split .chart-wrap { margin: 0; }
+
+/* left-aligned readable text column inside a .wide band, so section headers and
+   prose share the same left edge as wide figures/tables (no centered indent) */
+.prose { max-width: 72ch; }
+
+/* multi-column text grids for parallel subsections */
+.col-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.5rem, 3vw, var(--space-4));
+}
+.col-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.5rem, 3vw, var(--space-4)) clamp(2rem, 5vw, var(--space-6));
+  align-items: start;
+}
+.col-3 > div > :first-child, .col-3 h3:first-child,
+.col-2 > div > :first-child, .col-2 h3:first-child { margin-top: 0; }
+
+/* big stat callouts */
+.statline {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2);
+  margin: var(--space-3) 0;
+}
+.statline .stat-num {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(2rem, 4vw, 3rem); line-height: 1; color: var(--blue);
+  letter-spacing: -0.02em;
+}
+.statline .stat-cap {
+  font-family: var(--font-sans); font-size: var(--fs-meta);
+  color: var(--gray); margin-top: 0.35em;
+}
+.statline .stat-note {
+  display: block; font-size: var(--fs-eyebrow); color: var(--gray); margin-top: 0.2em;
+}
+.statline > div { border-top: 2px solid var(--ink); padding-top: 0.6rem; }
+
+/* a heading with one big number callout floated to its right */
+.results-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--space-4); flex-wrap: wrap; margin: 0 0 var(--space-2);
+}
+.results-badge {
+  display: flex; align-items: center; gap: 0.7rem;
+  border-left: 3px solid var(--blue); padding-left: 0.9rem;
+}
+.results-badge-num {
+  font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em;
+  font-size: clamp(2.4rem, 4vw, 3.4rem); line-height: 1; color: var(--blue);
+}
+.results-badge-cap {
+  font-family: var(--font-sans); font-size: 1.15rem; font-weight: 500;
+  color: var(--gray); max-width: 20ch; line-height: 1.3;
+}
+@media (max-width: 720px) { .results-head { justify-content: flex-start; } }
+
+@media (max-width: 860px) {
+  .split, .split--rev { grid-template-columns: 1fr; gap: var(--space-3); }
+  .split--airy { gap: var(--space-4); }
+  .split--rev .split-text { order: 0; }
+  .col-3, .col-2 { grid-template-columns: 1fr; gap: var(--space-3); }
+  .statline { grid-template-columns: 1fr 1fr; }
+}
+/* On very small screens a long inline formula cannot line-break and would
+   overflow; cap it to the line width and let it scroll within itself instead. */
+@media (max-width: 480px) {
+  .katex { display: inline-block; max-width: 100%; overflow-x: auto; overflow-y: hidden; vertical-align: middle; }
+}
+
+section { padding-block: var(--space-6); }
+section + section { border-top: 1px solid var(--gray-line); }
+/* Content sections alternate tint automatically by position; the hero stays
+   plain, so add/remove a section and the rhythm fixes itself. */
+main > section:not(.hero):nth-of-type(odd) { background: var(--gray-soft); }
+
+/* eyebrow + black square motif */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.86rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gray);
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  margin: 0 0 var(--space-2);
+}
+.eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 0.5em; height: 0.5em;
+  background: var(--ink);
+  flex: 0 0 auto;
+}
+
+/* ----- Typography -------------------------------------------------------- */
+h1, h2, h3 { font-family: var(--font-display); color: var(--ink); line-height: 1.12; }
+h2 {
+  font-weight: 600;
+  font-size: var(--fs-h2);
+  letter-spacing: -0.01em;
+  margin: 0 0 var(--space-3);
+}
+h3 {
+  font-weight: 600;
+  font-size: var(--fs-h3);
+  letter-spacing: -0.005em;
+  margin: var(--space-4) 0 var(--space-1);
+}
+p { margin: 0 0 var(--space-2); }
+
+/* Hyphenate prose so left-aligned (ragged-right) text breaks long words at line
+   ends instead of leaving a deeply jagged right edge. Headings and short UI
+   labels are deliberately excluded. */
+p, li, .lead, figcaption, blockquote, dd {
+  -webkit-hyphens: auto;
+  hyphens: auto;
+  -webkit-hyphenate-limit-before: 3;
+  -webkit-hyphenate-limit-after: 3;
+  hyphenate-limit-chars: 6 3 3;
+}
+.lead {
+  font-size: var(--fs-lead);
+  line-height: 1.5;
+  color: #2a2a2a;
+}
+.muted { color: var(--gray); }
+
+/* editorial highlight: a soft marker swipe under the lower half of the text,
+   in the manner of a highlighter pen. Used sparingly on the load-bearing claim
+   so the core message reads at a glance. */
+mark.hl {
+  background: linear-gradient(transparent 56%, var(--blue-wash-2) 56%);
+  color: inherit;
+  padding: 0 0.05em;
+}
+.lead mark.hl { background: linear-gradient(transparent 60%, var(--blue-wash-2) 60%); }
+
+/* pull quote / blockquote */
+blockquote.pull {
+  margin: var(--space-4) 0; padding: 0 0 0 var(--space-3);
+  border-left: 3px solid var(--blue);
+  font-family: var(--font-serif); font-size: 1.35rem; line-height: 1.45;
+  color: var(--ink);
+}
+blockquote.pull cite {
+  display: block; margin-top: var(--space-2);
+  font-family: var(--font-sans); font-size: var(--fs-meta); font-style: normal; color: var(--gray);
+}
+
+/* math spans should sit inline cleanly (KaTeX is optional; load it per page) */
+.katex { font-size: 1.02em; }
+.eq-block { margin: var(--space-3) 0; overflow-x: auto; overflow-y: hidden; }
+.eq-block .katex-display { margin: 0; }
+
+/* ----- Header / nav ------------------------------------------------------ */
+/* Floating frosted-glass "pill" header: fixed and inset from the edges, fully
+   rounded, and visible at every scroll position — no collapse, no dissolve. On
+   mobile it splits into two standalone circular buttons (brand left, menu
+   right) with a full-screen overlay menu. */
+.site-header {
+  position: fixed; inset: 0 0 auto 0; z-index: 50;
+  padding: var(--header-gap) 16px;
+  pointer-events: none;            /* let the inset margins pass clicks through */
+}
+.header-pill {
+  position: relative;
+  pointer-events: auto;
+  max-width: var(--wide); margin-inline: auto;
+  height: var(--header-h);
+  display: flex; align-items: center; gap: var(--space-3);
+  padding-inline: 22px;
+}
+.header-pill::before {
+  content: ""; position: absolute; inset: 0; z-index: 0;
+  border-radius: 999px;
+  background: rgba(255,255,255,.72);
+  -webkit-backdrop-filter: saturate(160%) blur(14px);
+  backdrop-filter: saturate(160%) blur(14px);
+  border: 1px solid rgba(17,17,17,.07);
+  box-shadow: var(--shadow);
+}
+.brand-mark, .nav, .nav-toggle { position: relative; z-index: 1; }
+.brand-mark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  display: flex; align-items: center; gap: 0.55em;
+  flex: 0 0 auto;
+  height: 100%;
+  border-radius: 999px;
+  background: transparent; border: 1px solid transparent; box-shadow: none;
+  -webkit-backdrop-filter: saturate(160%) blur(14px);
+  backdrop-filter: saturate(160%) blur(14px);
+}
+.brand-mark::before {
+  content: ""; width: 1.15em; height: 1.15em; display: inline-block;
+  flex: 0 0 auto;
+  background: var(--ink);
+  -webkit-mask: url(../brand/icon.svg) center / contain no-repeat;
+  mask: url(../brand/icon.svg) center / contain no-repeat;
+}
+.brand-mark:hover { text-decoration: none; }
+.brand-word {
+  max-width: 14em; overflow: hidden; white-space: nowrap;
+  transition: max-width .4s cubic-bezier(.22,.61,.36,1), opacity .3s ease, margin .4s ease;
+}
+.site-footer .brand-mark::before { background: #fff; }
+
+.nav { margin-left: auto; display: flex; gap: var(--space-3); align-items: center; transition: opacity .3s ease; }
+.nav a, .nav .nav-pending {
+  font-family: var(--font-sans);
+  font-size: var(--fs-meta);
+  color: var(--gray);
+  letter-spacing: 0.01em;
+}
+.nav a:hover { color: var(--ink); text-decoration: none; }
+.nav a.active { color: var(--ink); font-weight: 600; }
+.nav-toggle { display: none; }
+
+/* ----- Hero -------------------------------------------------------------- */
+.hero { padding-top: calc(var(--header-h) + var(--header-gap) + var(--space-4)); padding-bottom: var(--space-4); }
+.hero-intro { max-width: 60rem; }
+.hero h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-title);
+  letter-spacing: -0.02em;
+  line-height: 1.04;
+  color: var(--ink);
+  margin: 0 0 var(--space-3);
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+.byline, .affil { overflow-wrap: break-word; }
+.hero h1 .accent { color: var(--blue); }
+/* the lead reads as a standfirst: larger serif on a tight measure */
+.hero .lead {
+  max-width: 56ch;
+  font-size: clamp(1.25rem, 2.2vw, 1.5rem);
+  line-height: 1.45;
+  color: #2a2a2a;
+  margin-bottom: var(--space-4);
+}
+/* masthead metadata, set off from the lead by a thin editorial rule */
+.hero-meta { border-top: 1px solid var(--gray-line); padding-top: var(--space-3); }
+.hero-meta > :first-child { margin-top: 0; }
+.byline {
+  font-family: var(--font-mono);
+  font-size: var(--fs-meta);
+  color: var(--gray);
+  margin: var(--space-3) 0 var(--space-1);
+  line-height: 1.7;
+}
+.byline .names { color: var(--ink); }
+.affil { font-family: var(--font-mono); font-size: var(--fs-eyebrow); color: var(--gray); }
+
+/* ----- Buttons / actions ------------------------------------------------- */
+.actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: var(--space-3); }
+.btn {
+  font-family: var(--font-sans);
+  font-size: var(--fs-meta);
+  font-weight: 600;
+  display: inline-flex; align-items: center; gap: 0.45em;
+  padding: 0.6em 1.05em;
+  border-radius: 8px;
+  border: 1px solid var(--gray-line);
+  background: var(--white);
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color .15s, background .15s, transform .05s;
+}
+.btn:hover { border-color: var(--blue); color: var(--blue); text-decoration: none; }
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--blue); border-color: var(--blue); color: var(--white); }
+.btn-primary:hover { background: var(--blue-dark); border-color: var(--blue-dark); color: var(--white); }
+.btn svg { width: 1em; height: 1em; }
+/* greyed-out actions for resources not available yet — the honesty token */
+.btn-disabled {
+  color: var(--gray); background: var(--gray-soft);
+  border-color: var(--gray-line); cursor: not-allowed; opacity: 0.75; user-select: none;
+}
+.btn-disabled:hover { color: var(--gray); border-color: var(--gray-line); }
+.foot-pending { color: var(--gray); cursor: not-allowed; }
+
+/* ----- Figure bands / captions ------------------------------------------ */
+.figure-band { padding-block: var(--space-5); }
+.figure {
+  margin: var(--space-3) 0;
+  background: var(--white);
+  border: 1px solid var(--gray-line);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.figure-stage {
+  padding: var(--space-3);
+  display: flex; justify-content: center; align-items: center;
+  background: linear-gradient(var(--gray-soft), var(--gray-soft));
+}
+/* a dark mat variant for media that reads better on dark */
+.figure-stage--dark { background: var(--dark-mat); }
+.figure-stage svg, .figure-stage img, .figure-stage video { display: block; max-width: 100%; }
+figcaption {
+  font-family: var(--font-sans);
+  font-size: var(--fs-meta);
+  color: #333;
+  line-height: 1.5;
+  padding: var(--space-2) var(--space-3);
+  border-top: 1px solid var(--gray-line);
+}
+figcaption .fig-label {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  color: var(--blue);
+  margin-right: 0.5em;
+}
+
+/* a 16:9 media frame in a quiet dark mat (video or interactive) */
+.media-frame {
+  position: relative; width: 100%; aspect-ratio: 16 / 9;
+  border: 1px solid var(--gray-line); border-radius: var(--radius); overflow: hidden;
+  background: radial-gradient(120% 120% at 50% 0%, rgba(0,108,250,.06), transparent 60%), var(--dark-mat);
+  box-shadow: var(--shadow);
+}
+.media-frame video, .media-frame img { display: block; width: 100%; height: 100%; object-fit: contain; background: var(--dark-mat); }
+
+/* ----- Cards ------------------------------------------------------------- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-2);
+  margin: var(--space-3) 0;
+}
+.card-grid.grid-2 { grid-template-columns: 1fr 1fr; }
+.card {
+  border: 1px solid var(--gray-line);
+  border-radius: var(--radius);
+  padding: var(--space-3);
+  background: var(--white);
+}
+.card h3 { margin-top: 0; }
+.card .stat { font-family: var(--font-display); font-weight: 700; font-size: 2rem; color: var(--blue); line-height: 1; }
+.card .stat-label { font-family: var(--font-sans); font-size: var(--fs-meta); color: var(--gray); }
+
+/* contribution triad: columns each with a numbered blue top rule */
+.contribs {
+  display: grid; gap: var(--space-3); margin: var(--space-4) 0 0;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.contrib { border-top: 2px solid var(--blue); padding-top: var(--space-2); }
+.contrib .num {
+  font-family: var(--font-display); font-weight: 700; color: var(--blue);
+  font-size: 1.6rem; line-height: 1; margin-bottom: 0.4rem;
+}
+.contrib h3 { margin-top: 0; }
+.contrib-outcome { margin-top: var(--space-1); font-family: var(--font-sans); font-size: var(--fs-meta); color: var(--blue); }
+@media (max-width: 860px) { .contribs { grid-template-columns: 1fr; gap: var(--space-3); } }
+
+/* placeholder / pending cards */
+.placeholder {
+  border: 1px dashed var(--gray-line);
+  border-radius: var(--radius);
+  padding: var(--space-4);
+  text-align: center;
+  color: var(--gray);
+  font-family: var(--font-sans);
+  background: repeating-linear-gradient(45deg, transparent, transparent 10px,
+      rgba(0,108,250,.025) 10px, rgba(0,108,250,.025) 20px);
+}
+.placeholder .ph-icon { font-size: 1.6rem; color: var(--blue-muted); }
+.placeholder .ph-title { color: var(--ink); font-weight: 600; margin: 0.4em 0 0.2em; }
+
+/* status / venue badges */
+.status-badge {
+  display: inline-block;
+  font-family: var(--font-sans); font-size: var(--fs-eyebrow); font-weight: 600;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  padding: 0.25em 0.7em; border-radius: 999px;
+  background: var(--blue); color: var(--white); margin-bottom: var(--space-1);
+}
+.status-badge--prep { background: var(--gray-soft); color: var(--gray); border: 1px solid var(--gray-line); }
+.status-badge--venue { background: #e8f0ff; color: #1a4ac4; }
+/* inline venue badge after a title */
+.inline-badge {
+  display: inline-block; vertical-align: middle; margin-left: 0.5em;
+  font-family: var(--font-sans); font-size: var(--fs-eyebrow); font-weight: 600;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  padding: 0.2em 0.6em; border-radius: 999px;
+  background: #e8f0ff; color: #1a4ac4;
+}
+
+/* ----- Tabs (segmented control + sliding thumb) -------------------------- */
+/* A single pill of options; a blue thumb (.tabs-slider) slides behind the
+   active one. The thumb geometry is set in JS so any label widths work. */
+.tabs { margin-top: var(--space-3); }
+.tabs-nav {
+  position: relative; display: inline-flex; flex-wrap: wrap; gap: 4px;
+  margin-bottom: var(--space-3); padding: 5px;
+  background: var(--gray-soft); border: 1px solid var(--gray-line); border-radius: 999px;
+}
+.tabs-slider {
+  position: absolute; top: 0; left: 0; z-index: 0;
+  border-radius: 999px; background: var(--blue); box-shadow: var(--shadow);
+  transition: transform .28s cubic-bezier(.4, 0, .2, 1), width .28s cubic-bezier(.4, 0, .2, 1), height .28s;
+}
+.tab-btn {
+  position: relative; z-index: 1; border: 0; background: transparent; cursor: pointer;
+  font-family: var(--font-sans); font-size: var(--fs-meta); font-weight: 600;
+  color: var(--ink); padding: 0.5em 1.1em; border-radius: 999px; transition: color .2s;
+}
+.tab-btn:hover:not(.is-active) { color: var(--blue); }
+.tab-btn.is-active { color: #fff; }
+.tab-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.82fr);
+  gap: clamp(1.5rem, 4vw, var(--space-5));
+  align-items: center;
+}
+.tab-panel[hidden] { display: none; }
+.tab-panel--wide { grid-template-columns: 1fr; align-items: start; }
+.tab-text > :first-child { margin-top: 0; }
+@media (max-width: 860px) { .tab-panel { grid-template-columns: 1fr; gap: var(--space-3); } }
+
+/* three-up media strip (e.g. before/after/diff or a triptych of clips) */
+.threeup { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-2); }
+.threeup-cell { min-width: 0; }
+.threeup-vid { position: relative; border: 1px solid var(--gray-line); border-radius: var(--radius); overflow: hidden; background: var(--dark-mat); }
+.threeup-vid video, .threeup-vid img { display: block; width: 100%; height: auto; }
+.threeup-cap { text-align: center; font-weight: 600; font-size: var(--fs-meta); margin: 0.4rem 0 0; font-family: var(--font-sans); }
+@media (max-width: 640px) { .threeup { grid-template-columns: 1fr; } }
+
+/* ----- Tables ------------------------------------------------------------ */
+.table-wrap { overflow-x: auto; margin: var(--space-3) 0; }
+.table-lead {
+  font-family: var(--font-serif); font-size: 1.05rem; line-height: 1.55;
+  color: var(--ink); margin: var(--space-2) 0; max-width: 70ch;
+}
+table.data {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-sans);
+  font-size: var(--fs-meta);
+}
+table.data caption {
+  caption-side: bottom; text-align: left; color: #333;
+  font-size: var(--fs-meta); line-height: 1.5; padding-top: var(--space-2);
+}
+table.data caption .fig-label { color: var(--blue); font-weight: 600; margin-right: 0.4em; }
+table.data th, table.data td {
+  padding: 0.55em 0.85em; text-align: right;
+  border-bottom: 1px solid var(--gray-line); white-space: nowrap;
+}
+table.data th:first-child, table.data td:first-child { text-align: left; }
+/* textual tables (descriptions, not numbers) read better left-aligned */
+table.data.data--text th, table.data.data--text td { text-align: left; white-space: normal; }
+table.data thead th { color: var(--ink); font-weight: 600; border-bottom: 2px solid var(--ink); user-select: none; }
+table.data thead th.sortable { cursor: pointer; }
+table.data thead th.sortable:hover { color: var(--blue); }
+table.data thead th .sort-ind { color: var(--blue); font-size: 0.85em; margin-left: 0.3em; }
+table.data tbody tr:hover { background: var(--blue-wash); }
+table.data tbody tr.is-best td { font-weight: 600; }
+table.data td.best { color: var(--blue); font-weight: 700; }
+table.data .group-row th {
+  text-align: left; background: var(--gray-soft);
+  font-family: var(--font-mono); font-size: var(--fs-eyebrow);
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray);
+}
+/* "to be filled" honesty token */
+.tbd { color: var(--blue-muted); font-style: italic; font-family: var(--font-sans); opacity: 0.75; }
+.tbd::after { content: "to be filled"; }
+td .tbd { font-size: 0.92em; }
+
+/* ----- BibTeX block ------------------------------------------------------ */
+.bibtex {
+  position: relative;
+  background: #0f1115; color: #e7e9ee;
+  border-radius: var(--radius);
+  padding: var(--space-3);
+  font-family: var(--font-mono); font-size: 0.8rem; line-height: 1.55;
+  overflow-x: auto;
+}
+.bibtex .copy-btn {
+  position: absolute; top: 10px; right: 10px;
+  font-family: var(--font-sans); font-size: 0.72rem; font-weight: 600;
+  background: rgba(255,255,255,.08); color: #fff;
+  border: 1px solid rgba(255,255,255,.18); border-radius: 6px;
+  padding: 0.35em 0.7em; cursor: pointer;
+}
+.bibtex .copy-btn:hover { background: var(--blue); border-color: var(--blue); }
+
+/* The canonical citation pattern is a BibTeX action button that copies a hidden
+   <pre id="bibtex-src"> to the clipboard (wired in main.js) — no visible code
+   block. The .bibtex styling above is kept for the rare case you want to display
+   the citation inline. */
+#bibtex-src { display: none; }
+
+/* ----- Charts ------------------------------------------------------------ */
+/* Rendered by assets/js/charts.js into any .chart-wrap host. */
+.chart-wrap { position: relative; width: 100%; margin: var(--space-3) 0; }
+.chart { position: relative; width: 100%; }
+.chart-legend {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: var(--space-2) var(--space-3); margin-top: var(--space-2);
+  font-family: var(--font-sans); font-size: var(--fs-meta);
+}
+.chart-legend .key { display: inline-flex; align-items: center; gap: 0.4em; cursor: pointer; color: var(--gray); }
+.chart-legend .key.on { color: var(--ink); }
+.chart-legend .key.off { text-decoration: line-through; }
+.chart-legend .swatch { width: 0.9em; height: 0.9em; border-radius: 2px; display: inline-block; flex: none; }
+.chart-note {
+  margin: var(--space-1) 0 0; text-align: center;
+  font-family: var(--font-sans); font-size: var(--fs-eyebrow); color: var(--gray);
+}
+.chart-title {
+  font-family: var(--font-sans); font-weight: 600; font-size: var(--fs-meta);
+  color: var(--ink); margin: 0 0 var(--space-1); text-align: center;
+}
+.chart-tooltip {
+  position: absolute; pointer-events: none; opacity: 0;
+  background: var(--ink); color: #fff;
+  font-family: var(--font-sans); font-size: 0.78rem;
+  padding: 0.45em 0.6em; border-radius: 6px; transform: translate(-50%, -120%);
+  white-space: nowrap; transition: opacity .1s; z-index: 5;
+}
+.chart-tooltip b { color: #fff; }
+
+/* ----- Scroll reveal (progressive enhancement: only when JS is on) ------- */
+.js .reveal { opacity: 0; transform: translateY(14px); transition: opacity .5s ease, transform .5s ease; }
+.js .reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ----- Footer ------------------------------------------------------------ */
+.site-footer {
+  border-top: 1px solid var(--gray-line);
+  background: var(--ink);
+  color: #cfd3da;
+  padding-block: var(--space-4);
+  font-family: var(--font-sans);
+  font-size: var(--fs-meta);
+}
+.site-footer a { color: #fff; }
+.site-footer .foot-grid { display: flex; flex-wrap: wrap; gap: var(--space-4); justify-content: space-between; align-items: flex-start; }
+.site-footer .brand-mark {
+  height: auto; width: auto; display: inline-flex; justify-content: flex-start;
+  gap: 0.55em; margin-bottom: 0.5rem;
+  background: transparent; border-color: transparent; box-shadow: none;
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+}
+.site-footer .copyright { color: var(--gray); margin-top: var(--space-3); font-family: var(--font-mono); font-size: var(--fs-eyebrow); }
+
+/* ----- Responsive: mobile header ----------------------------------------- */
+@media (max-width: 820px) {
+  :root { --header-h: 52px; }
+  /* mobile: no connecting bar — two standalone frosted circles (brand left,
+     menu right) with a full-screen overlay menu. */
+  .header-pill::before { opacity: 0 !important; }
+  .header-pill { padding-inline: 6px; gap: 0; }
+  .brand-mark {
+    width: var(--header-h); justify-content: center; gap: 0; z-index: 2;
+    background: rgba(255,255,255,.82); border-color: rgba(17,17,17,.07); box-shadow: var(--shadow);
+  }
+  .brand-word { max-width: 0; opacity: 0; margin: 0; }
+  .nav-toggle {
+    display: inline-flex; margin-left: auto; z-index: 2;
+    width: var(--header-h); height: var(--header-h); border-radius: 999px;
+    align-items: center; justify-content: center; flex-direction: column; gap: 5px;
+    background: rgba(255,255,255,.82); border: 1px solid rgba(17,17,17,.07);
+    box-shadow: var(--shadow); cursor: pointer; padding: 0;
+    -webkit-backdrop-filter: saturate(160%) blur(14px); backdrop-filter: saturate(160%) blur(14px);
+  }
+  .nav-toggle span { width: 20px; height: 2px; background: var(--ink); display: block; border-radius: 2px; transition: transform .25s ease, opacity .2s ease; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  .nav {
+    position: fixed; inset: 0; margin: 0; z-index: 0;
+    flex-direction: column; align-items: stretch; justify-content: center; gap: 0;
+    padding: max(16vh, 110px) 34px calc(env(safe-area-inset-bottom) + 32px);
+    background: rgba(255,255,255,.88);
+    -webkit-backdrop-filter: saturate(160%) blur(22px); backdrop-filter: saturate(160%) blur(22px);
+    opacity: 0; visibility: hidden; pointer-events: none;
+    transition: opacity .28s ease, visibility 0s linear .28s;
+  }
+  .nav.open { opacity: 1; visibility: visible; pointer-events: auto; transition: opacity .28s ease; }
+  .nav a, .nav .nav-pending {
+    font-family: var(--font-display); font-size: 1.7rem; font-weight: 600;
+    color: var(--ink); padding: 0.55em 0; border-bottom: 1px solid var(--gray-line);
+  }
+  .nav > :last-child { border-bottom: none; }
+  section { padding-block: var(--space-5); }
+  .hero { padding-top: calc(var(--header-h) + var(--header-gap) + var(--space-3)); }
+  .card-grid.grid-2 { grid-template-columns: 1fr; }
+}
+body.nav-open { overflow: hidden; }

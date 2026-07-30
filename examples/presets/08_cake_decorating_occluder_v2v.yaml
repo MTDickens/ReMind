@@ -1,0 +1,35 @@
+# Copyright 2026 Applied Intuition, Inc.
+# SPDX-License-Identifier: CC-BY-NC-4.0
+
+name: cake_decorating_occluder_v2v
+website_case: tf25x_occluder_21_cake_decorating
+task: v2v
+input_video: ../assets/cake_decorating_prefix_21f.mp4
+seed_latent_frames: 6
+prompt: >-
+  A wooden cutting board holds a slice of bread coated with a smooth white spread. At the start a squeeze nozzle hovers above the left side of the slice with a single golden droplet hanging; the spread already shows faint concentric lines. As the clip progresses the droplet falls and a thin viscous ribbon of syrup traces circular swirls onto the spread, building a slightly more visible spiral pattern and small beads where the stream contacts the surface. The white spread and bread remain fixed on the board while the syrup accumulates and settles, forming shallow ridges and glossy highlights. By the end the nozzle is gone and the spiral of syrup sits on the spread, with a few tiny pooled spots along the swirl.
+seed: 20261521
+num_frames: 81
+height: 480
+width: 832
+fps: 16
+chunk_size: 3
+control:
+  kind: occluder
+  recovery_chunks: 2
+  params:
+    rgba_path: brown_cardboard_box/31447457_rgba.png
+    enter_side: bottom
+    exit_side: top
+    t_enter_start: 36
+    t_enter_end: 42
+    t_hold_start: 42
+    t_hold_end: 54
+    t_exit_start: 54
+    t_exit_end: 60
+    peak_scale: 2.0109107073061514
+    force_rect_mask: true
+  meta:
+    label: brown cardboard box
+    caption: A brown cardboard box with a corrugated edge, featuring a black logo and text on its surface. The box is partially open, revealing its interior.
+    slug: brown_cardboard_box

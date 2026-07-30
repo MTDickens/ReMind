@@ -1,0 +1,6 @@
+# Copyright 2026 Applied Intuition, Inc.
+# SPDX-License-Identifier: CC-BY-NC-4.0
+
+# Optional fused attention. Install a wheel compatible with your exact
+# PyTorch/CUDA build; PyTorch SDPA is used when this is unavailable.
+flash-attn>=2.7

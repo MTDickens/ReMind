@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<!-- Copyright 2026 Applied Intuition, Inc.
+     SPDX-License-Identifier: CC-BY-NC-4.0 -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Teaching Video Generators to Remember: Eliciting Dynamic Memory for Out-of-Sight State Evolution</title>
+<meta name="description" content="ReMind is a causal autoregressive video generator that preserves and evolves world state beyond the current view.">
+<meta name="theme-color" content="#006CFA">
+<link rel="icon" href="assets/brand/favicon.ico" sizes="32x32">
+<link rel="icon" href="assets/brand/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/brand/apple-touch-icon.png">
+<script>document.documentElement.className += " js";</script>
+<link rel="stylesheet" href="assets/css/styles.css">
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body class="project-page">
+<a class="skip-link" href="#top">Skip to content</a>
+
+<header class="site-header">
+  <div class="header-pill">
+    <a class="brand-mark" href="#top" aria-label="ReMind home"><span class="brand-word">ReMind</span></a>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+    <nav class="nav" id="nav">
+      <a href="#state">State</a>
+      <a href="#control">Control</a>
+      <a href="#ood">OOD generalization</a>
+      <a href="#clean">Clean video</a>
+      <a href="#method">Method</a>
+      <a href="#citation">Citation</a>
+      <span class="nav-pending" aria-disabled="true">Code · coming soon</span>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero project-hero">
+    <div class="wide"><div class="hero-intro reveal">
+      <p class="eyebrow">Causal autoregressive video generation</p>
+      <h1>Teaching Video Generators to Remember: <span class="accent">Eliciting Dynamic Memory for Out-of-Sight State Evolution</span></h1>
+      <p class="lead">ReMind is a causal video generator that keeps world state alive while it is hidden—behind camera motion, physical occluders, or changing illumination—and brings it back coherently when the view returns.</p>
+      <div class="actions">
+        <span class="btn btn-disabled" aria-disabled="true">Code · coming soon</span>
+        <a class="btn" href="https://arxiv.org/abs/2605.25333" target="_blank" rel="noopener">arXiv ↗</a>
+        <span class="btn btn-disabled" aria-disabled="true">Models · coming soon</span>
+        <span class="btn btn-disabled" aria-disabled="true">Dataset · coming soon</span>
+      </div>
+    </div></div>
+  </section>
+
+  <section id="state" class="showcase-section">
+    <div class="wide reveal">
+      <div class="section-intro"><p class="eyebrow">01 · Out-of-sight state evolution</p>
+        <h2>World state keeps evolving out of sight.</h2>
+        <p class="lead">The visible scene can leave the frame or disappear behind an interruption. ReMind continues the underlying dynamics instead of reconstructing a frozen past.</p></div>
+      <div class="showcase-block"><div class="showcase-heading"><h3>Camera pan</h3><p>Hidden content evolves while the view moves away and remains consistent when the camera reveals it again.</p></div>
+        <div class="video-grid video-grid--4">
+<figure class="showcase-tile showcase-tile--bare">
+  <div class="media-frame"><video src="assets/videos/state/camera-pan/01.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="ReMind generated video"></video></div>
+</figure>
+<figure class="showcase-tile showcase-tile--bare">
+  <div class="media-frame"><video src="assets/videos/state/camera-pan/02.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="ReMind generated video"></video></div>
+</figure>
+<figure class="showcase-tile showcase-tile--bare">
+  <div class="media-frame"><video src="assets/videos/state/camera-pan/03.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="ReMind generated video"></video></div>
+</figure>
+<figure class="showcase-tile showcase-tile--bare">
+  <div class="media-frame"><video src="assets/videos/state/camera-pan/04.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="ReMind generated video"></video></div>
+</figure>
+<figure class="showcase-tile showcase-tile--bare">
+  <div class="media-frame"><video src="assets/videos/state/camera-pan/05.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="ReMind generated video"></video></div>
+</figure>
+<figure class="showcase-tile showcase-tile--bare">
+  <div class="media-frame"><video src="assets/videos/state/camera-pan/06.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="ReMind generated video"></video></div>
+</figure>
+<figure class="showcase-tile showcase-tile--bare">
+  <div class="media-frame"><video src="assets/videos/state/camera-pan/07.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="ReMind generated video"></video></div>
+</figure>
+<figure class="showcase-tile showcase-tile--bare">
+  <div class="media-frame"><video src="assets/videos/state/camera-pan/08.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="ReMind generated video"></video></div>
+</figure>
+<figure class="showcase-tile showcase-tile--bare">
+  <div class="media-frame"><video src="assets/videos/state/camera-pan/09.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="ReMind generated video"></video></div>
+</figure>
+<figure class="showcase-tile showcase-tile--bare">
+  <div class="media-frame"><video src="assets/videos/state/camera-pan/10.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="ReMind generated video"></video></div>
+</figure>
+<figure class="showcase-tile showcase-tile--bare">
+  <div class="media-frame"><video src="assets/videos/state/camera-pan/11.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="ReMind generated video"></video></div>
+</figure>
+<figure class="showcase-tile showcase-tile--bare">
+  <div class="media-frame"><video src="assets/videos/state/camera-pan/12.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="ReMind generated video"></video></div>
+</figure>
+</div></div>
+      <div class="showcase-block"><div class="showcase-heading"><h3>Occluder and light toggle</h3><p>Physical events continue through temporary occlusion and changes in illumination.</p></div>
+        <div class="video-grid video-grid--4">
+<figure class="showcase-tile showcase-tile--bare">
+  <div class="media-frame"><video src="assets/videos/state/occlusion/01.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="ReMind generated video"></video></div>
+</figure>
+<figure class="showcase-tile showcase-tile--bare">
+  <div class="media-frame"><video src="assets/videos/state/occlusion/02.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="ReMind generated video"></video></div>
+</figure>
+<figure class="showcase-tile showcase-tile--bare">
+  <div class="media-frame"><video src="assets/videos/state/occlusion/03.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="ReMind generated video"></video></div>
+</figure>
+<figure class="showcase-tile showcase-tile--bare">
+  <div class="media-frame"><video src="assets/videos/state/occlusion/04.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="ReMind generated video"></video></div>
+</figure>
+<figure class="showcase-tile showcase-tile--bare">
+  <div class="media-frame"><video src="assets/videos/state/occlusion/05.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="ReMind generated video"></video></div>
+</figure>
+<figure class="showcase-tile showcase-tile--bare">
+  <div class="media-frame"><video src="assets/videos/state/occlusion/06.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="ReMind generated video"></video></div>
+</figure>
+<figure class="showcase-tile showcase-tile--bare">
+  <div class="media-frame"><video src="assets/videos/state/occlusion/07.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="ReMind generated video"></video></div>
+</figure>
+<figure class="showcase-tile showcase-tile--bare">
+  <div class="media-frame"><video src="assets/videos/state/occlusion/08.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="ReMind generated video"></video></div>
+</figure>
+<figure class="showcase-tile showcase-tile--bare">
+  <div class="media-frame"><video src="assets/videos/state/occlusion/09.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="ReMind generated video"></video></div>
+</figure>
+<figure class="showcase-tile showcase-tile--bare">
+  <div class="media-frame"><video src="assets/videos/state/occlusion/10.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="ReMind generated video"></video></div>
+</figure>
+<figure class="showcase-tile showcase-tile--bare">
+  <div class="media-frame"><video src="assets/videos/state/occlusion/11.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="ReMind generated video"></video></div>
+</figure>
+<figure class="showcase-tile showcase-tile--bare">
+  <div class="media-frame"><video src="assets/videos/state/occlusion/12.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="ReMind generated video"></video></div>
+</figure>
+</div></div>
+    </div>
+  </section>
+
+  <section id="control" class="showcase-section">
+    <div class="wide reveal">
+      <div class="section-intro"><p class="eyebrow">02 · Degradation controllability</p>
+        <h2>Control when the interruption happens.</h2>
+        <p class="lead">A shared pouring scene is generated cleanly or with light and occluder events placed early, in the middle, late, or twice.</p></div>
+      <div class="video-grid video-grid--4">
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/control/degradation/01.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Clean"></video></div>
+  <figcaption><span class="tile-label">Clean</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/control/degradation/02.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Light · early"></video></div>
+  <figcaption><span class="tile-label">Light · early</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/control/degradation/03.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Light · middle"></video></div>
+  <figcaption><span class="tile-label">Light · middle</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/control/degradation/04.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Light · late"></video></div>
+  <figcaption><span class="tile-label">Light · late</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/control/degradation/05.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Occluder · double"></video></div>
+  <figcaption><span class="tile-label">Occluder · double</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/control/degradation/06.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Occluder · early"></video></div>
+  <figcaption><span class="tile-label">Occluder · early</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/control/degradation/07.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Occluder · middle"></video></div>
+  <figcaption><span class="tile-label">Occluder · middle</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/control/degradation/08.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Occluder · late"></video></div>
+  <figcaption><span class="tile-label">Occluder · late</span></figcaption>
+</figure>
+</div>
+    </div>
+  </section>
+
+  <section id="occluders" class="showcase-section section-soft">
+    <div class="wide reveal">
+      <div class="section-intro"><p class="eyebrow">03 · Occluder diversity</p>
+        <h2>Change the occluder, not the hidden world.</h2>
+        <p class="lead">The same temporal event supports varied physical occluders, from cardboard and fabric to a full light toggle.</p></div>
+      <div class="video-grid video-grid--5">
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/control/occluder-diversity/01.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Clean"></video></div>
+  <figcaption><span class="tile-label">Clean</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/control/occluder-diversity/02.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Brown cardboard box"></video></div>
+  <figcaption><span class="tile-label">Brown cardboard box</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/control/occluder-diversity/03.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Cardboard sheet"></video></div>
+  <figcaption><span class="tile-label">Cardboard sheet</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/control/occluder-diversity/04.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Folded bed sheet"></video></div>
+  <figcaption><span class="tile-label">Folded bed sheet</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/control/occluder-diversity/05.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Tablecloth"></video></div>
+  <figcaption><span class="tile-label">Tablecloth</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/control/occluder-diversity/06.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Closed curtain"></video></div>
+  <figcaption><span class="tile-label">Closed curtain</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/control/occluder-diversity/07.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Velvet curtain"></video></div>
+  <figcaption><span class="tile-label">Velvet curtain</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/control/occluder-diversity/08.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Shower curtain"></video></div>
+  <figcaption><span class="tile-label">Shower curtain</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/control/occluder-diversity/09.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Corrugated cardboard"></video></div>
+  <figcaption><span class="tile-label">Corrugated cardboard</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/control/occluder-diversity/10.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Light toggle"></video></div>
+  <figcaption><span class="tile-label">Light toggle</span></figcaption>
+</figure>
+</div>
+    </div>
+  </section>
+
+  <section id="ood" class="showcase-section">
+    <div class="wide reveal">
+      <div class="section-intro"><p class="eyebrow">04 · Out-of-distribution generalization</p>
+        <h2>Recovery is not an occluder lookup.</h2>
+        <p class="lead">In this V2V setting, we introduce held-out pure-white fog at test time that becomes fully opaque—an occluder never seen during training. ReMind still recovers the continuously evolved scene, showing that it learned persistent dynamics rather than memorizing interruption patterns.</p></div>
+      <div class="video-grid video-grid--4">
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/ood-whiteout/01_reference.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Pouring and foam reference"></video></div>
+  <figcaption><span class="tile-label">Pouring and foam · Reference</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/ood-whiteout/01_remind.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Pouring and foam ReMind whiteout recovery"></video></div>
+  <figcaption><span class="tile-label">Pouring and foam · ReMind</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/ood-whiteout/02_reference.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Granular pile reference"></video></div>
+  <figcaption><span class="tile-label">Granular pile · Reference</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/ood-whiteout/02_remind.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Granular pile ReMind whiteout recovery"></video></div>
+  <figcaption><span class="tile-label">Granular pile · ReMind</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/ood-whiteout/03_reference.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Sauce spreading reference"></video></div>
+  <figcaption><span class="tile-label">Sauce spreading · Reference</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/ood-whiteout/03_remind.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Sauce spreading ReMind whiteout recovery"></video></div>
+  <figcaption><span class="tile-label">Sauce spreading · ReMind</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/ood-whiteout/04_reference.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Batter spreading reference"></video></div>
+  <figcaption><span class="tile-label">Batter spreading · Reference</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/ood-whiteout/04_remind.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Batter spreading ReMind whiteout recovery"></video></div>
+  <figcaption><span class="tile-label">Batter spreading · ReMind</span></figcaption>
+</figure>
+</div>
+    </div>
+  </section>
+
+  <section id="clean" class="showcase-section section-soft">
+    <div class="wide reveal">
+      <div class="section-intro"><p class="eyebrow">05 · Clean video generation</p>
+        <h2>Memory without a disturbance.</h2>
+        <p class="lead">ReMind also produces clean, undisturbed video across animals, people, fluids, fire, granular material, and everyday actions.</p></div>
+      <div class="video-grid video-grid--6">
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/clean/01.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Dog in motion"></video></div>
+  <figcaption><span class="tile-label">Dog in motion</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/clean/02.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Aquarium"></video></div>
+  <figcaption><span class="tile-label">Aquarium</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/clean/03.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Waterfowl"></video></div>
+  <figcaption><span class="tile-label">Waterfowl</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/clean/04.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Candle flame"></video></div>
+  <figcaption><span class="tile-label">Candle flame</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/clean/05.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Two-person motion"></video></div>
+  <figcaption><span class="tile-label">Two-person motion</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/clean/06.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Running"></video></div>
+  <figcaption><span class="tile-label">Running</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/clean/07.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Fish school"></video></div>
+  <figcaption><span class="tile-label">Fish school</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/clean/08.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Waterfall"></video></div>
+  <figcaption><span class="tile-label">Waterfall</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/clean/09.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Tennis"></video></div>
+  <figcaption><span class="tile-label">Tennis</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/clean/10.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Open flame"></video></div>
+  <figcaption><span class="tile-label">Open flame</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/clean/11.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Cooking"></video></div>
+  <figcaption><span class="tile-label">Cooking</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/clean/12.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Human motion"></video></div>
+  <figcaption><span class="tile-label">Human motion</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/clean/13.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Aquarium feeding"></video></div>
+  <figcaption><span class="tile-label">Aquarium feeding</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/clean/14.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Conversation"></video></div>
+  <figcaption><span class="tile-label">Conversation</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/clean/15.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="River flow"></video></div>
+  <figcaption><span class="tile-label">River flow</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/clean/16.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Dry-ice fog"></video></div>
+  <figcaption><span class="tile-label">Dry-ice fog</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/clean/17.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Sewing"></video></div>
+  <figcaption><span class="tile-label">Sewing</span></figcaption>
+</figure>
+<figure class="showcase-tile">
+  <div class="media-frame"><video src="assets/videos/clean/18.mp4" muted loop playsinline controls preload="none" data-autoplay aria-label="Granular pour"></video></div>
+  <figcaption><span class="tile-label">Granular pour</span></figcaption>
+</figure>
+</div>
+    </div>
+  </section>
+
+  <section id="method" class="method-section">
+    <div class="wide reveal">
+      <div class="section-intro"><p class="eyebrow">06 · Method</p>
+        <h2>A causal model built to remember.</h2>
+        <p class="lead">ReMind combines geometry-aware history, disturbance-robust training, and purpose-built dynamic video data to make out-of-sight state evolution work.</p></div>
+      <div class="contribs">
+        <div class="contrib"><div class="num">1</div><h3>PM-RoPE</h3><p class="muted">A 3D rotary position embedding controls camera motion while telling the current frame its temporal and camera-space distance to every history frame.</p><p class="contrib-outcome">→ the key geometry for out-of-sight state evolution</p></div>
+        <div class="contrib"><div class="num">2</div><h3>Node Drop</h3><p class="muted">A node-drop training mechanism teaches the model to ignore occlusions and other disturbances, then recover the evolving scene state when visibility returns.</p><p class="contrib-outcome">→ robust state recovery through interruptions</p></div>
+        <div class="contrib"><div class="num">3</div><h3>Dynamic data engine</h3><p class="muted">InSpatio-World provides large-scale synthetic camera motion, Helios provides strongly time-dynamic videos, and a curated occluder set provides diverse disturbances.</p><p class="contrib-outcome">→ camera, dynamics, and occlusion at scale</p></div>
+      </div>
+      <div class="release-note"><p>The release includes ReMind-5B checkpoints, inference code, and reproducible I2V/V2V examples. ReMind-1.3B and training code are coming soon.</p>
+        <span class="btn btn-disabled" aria-disabled="true">Code · coming soon</span></div>
+    </div>
+  </section>
+
+  <section id="citation" class="citation-section">
+    <div class="wide reveal">
+      <p class="eyebrow">07 · Citation</p>
+      <h2>Citation</h2>
+      <p>If you find ReMind useful, please cite our paper.</p>
+      <div class="bibtex"><pre><code>@article{xu2026teaching,
+  title={Teaching Video Generators to Remember: Eliciting Dynamic Memory for Out-of-Sight State Evolution},
+  author={Xu, Tianshuo and Xie, Yichen and Meng, Depu and Peng, Chensheng and Herau, Quentin and Jiang, Bo and Hu, Yihan and Zhan, Wei},
+  journal={arXiv preprint arXiv:2605.25333},
+  year={2026}
+}</code></pre></div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer"><div class="wide">
+  <div class="foot-grid"><div><a class="brand-mark" href="#top"><span class="brand-word">ReMind</span></a>
+    <p class="muted footer-note">Causal video generation with persistent world state.</p></div>
+  <nav><a href="#state">State evolution</a> · <a href="#control">Degradation control</a> · <a href="#ood">OOD generalization</a> · <a href="#clean">Clean video</a> · <a href="#citation">Citation</a> · <span class="foot-pending" aria-disabled="true">Code · coming soon</span></nav></div>
+  <p class="copyright">ReMind · 2026</p>
+</div></footer>
+
+<script src="assets/js/main.js"></script>
+</body>
+</html>

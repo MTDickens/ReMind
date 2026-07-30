@@ -1,0 +1,18 @@
+# Copyright 2026 Applied Intuition, Inc.
+# SPDX-License-Identifier: CC-BY-NC-4.0
+
+name: whisking_camera_pan
+website_case: v2_camera_10_pan_yaw_8dir_018092_helios_taxonomy_broad_physics_v1_final_10x8_
+task: i2v
+input_image: ../assets/whisking_batter.png
+prompt: >-
+  A metal whisk stirs a thick pale batter sitting on a wooden board. At the start a rounded mound of batter rests with the whisk entering near its top; the whisk repeatedly presses into the center and drags material outward, carving concentric swirls and a shallow trough. Midway the batter spreads and the whisk tilts and shifts rightward while its wires create radial grooves; the mixture behaves viscously, flowing slowly back into the stirred channel without splashing. By the end the batter is noticeably more spread with a distinct central depression and spiral ripples, the whisk positioned to the right and a single hand steadying it at the board edge. The scene shows continuous stirring-driven deformation and outward spreading of the batter.
+seed: 20261310
+num_frames: 81
+height: 480
+width: 832
+fps: 16
+chunk_size: 3
+control:
+  kind: camera
+  trajectory: ../assets/whisking_batter_camera.npz

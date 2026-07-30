@@ -1,0 +1,35 @@
+# Copyright 2026 Applied Intuition, Inc.
+# SPDX-License-Identifier: CC-BY-NC-4.0
+
+name: ice_melting_drink_occluder_v2v
+website_case: tf25x_occluder_12_ice_melting_drink
+task: v2v
+input_video: ../assets/ice_melting_drink_prefix_21f.mp4
+seed_latent_frames: 6
+prompt: >-
+  A small glass of amber liquid with a burning flame sits on a tabletop; initially a clear ice chunk occupies the glass and a thin rim of white foam sits at the surface while smoke curls away. As the sequence proceeds the ice melts or becomes engulfed in a growing opaque white layer that swirls and billows inside the glass, producing more visible smoke to the right. The foam rises and then spills over the rim, spreading outward into a bright, circular pale puddle on the table that expands until it surrounds the base. The flame remains atop the drink throughout, while internal mixing and melting drive the progressive growth of the white foam and the spreading spill.
+seed: 20261512
+num_frames: 81
+height: 480
+width: 832
+fps: 16
+chunk_size: 3
+control:
+  kind: occluder
+  recovery_chunks: 2
+  params:
+    rgba_path: brown_cardboard_box/5025657_rgba.png
+    enter_side: left
+    exit_side: right
+    t_enter_start: 24
+    t_enter_end: 30
+    t_hold_start: 30
+    t_hold_end: 42
+    t_exit_start: 42
+    t_exit_end: 48
+    peak_scale: 2.0236404369083716
+    force_rect_mask: true
+  meta:
+    label: brown cardboard box
+    caption: A brown cardboard box with a rectangular shape, placed on a paved surface.
+    slug: brown_cardboard_box

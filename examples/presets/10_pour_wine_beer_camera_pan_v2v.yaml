@@ -1,0 +1,19 @@
+# Copyright 2026 Applied Intuition, Inc.
+# SPDX-License-Identifier: CC-BY-NC-4.0
+
+name: pour_wine_beer_camera_pan_v2v
+website_case: v2_camera_01_pan_yaw_8dir_011556_helios_taxonomy_broad_physics_v1_final_10x8_
+task: v2v
+input_video: ../assets/pour_wine_beer_prefix_21f.mp4
+seed_latent_frames: 6
+prompt: >-
+  A dark carbonated beverage is poured into a clear stemless wine glass sitting on a light tabletop. At the start a moderate amount of liquid and a thin ring of pale foam sit low in the bowl; a vertical stream descends into the center. As pouring continues the stream impinges on the surface, creating ripples, small bubbles and localized splashing; aeration produces a growing pale foam head that spreads outward. Midway the foam thickens and the liquid level rises noticeably. By the end the glass is nearly full with a substantial domed foam layer reaching the rim and small bubbles scattered across the head; the pouring column now sits very close to the foam surface. The scene shows progressive filling and foam formation driven by the incoming stream.
+seed: 20261301
+num_frames: 81
+height: 480
+width: 832
+fps: 16
+chunk_size: 3
+control:
+  kind: camera
+  trajectory: ../assets/pour_wine_beer_camera.npz
