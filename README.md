@@ -118,6 +118,36 @@ Inspect the resolved four-step prompt/camera schedule without loading weights:
 python inference.py --preset examples/presets/01_latte_occluder_recovery.yaml --dry-run
 ```
 
+## Minimal PlayWorld adapter
+
+`player.py` provides a deliberately open-loop PlayWorld integration. It loads a
+task record, uses `image_caption` as ReMind's content-only prompt, runs clean
+I2V inference, and writes `outputs/remind/<task_id>/<task_id>.mp4` plus
+`result.json`. The benchmark objective and dataset actions are recorded but are
+not applied yet, so this adapter is for plumbing checks rather than benchmark
+reporting.
+
+Validate the bundled GC example without loading model weights:
+
+```bash
+REMIND_DATA_ROOT="$PWD/example" \
+REMIND_MAPPING_JSON="$PWD/example/GC/001.json" \
+Agent_player/ReMind/run_task.sh GC002 --dry-run
+```
+
+For inference, set the three checkpoint paths and choose the ReMind Python
+environment:
+
+```bash
+REMIND_PYTHON_BIN="$PWD/Agent_player/ReMind/.venv/bin/python" \
+REMIND_MODEL_FOLDER="/path/to/Wan2.2-TI2V-5B" \
+REMIND_BASE_CHECKPOINT="/path/to/ReMind-5B.safetensors" \
+REMIND_EMA_CHECKPOINT="/path/to/ReMind-5b-dmd-ema.safetensors" \
+REMIND_DATA_ROOT="$PWD/example" \
+REMIND_MAPPING_JSON="$PWD/example/GC/001.json" \
+Agent_player/ReMind/run_task.sh GC002
+```
+
 See [`docs/inference.md`](docs/inference.md) for caption and control
 conventions, and [`examples/README.md`](examples/README.md) for the exact page-case seeds,
 occluder schedules, pair-fixed camera trajectories, prompts, and input frames.
