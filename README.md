@@ -27,7 +27,8 @@ code is not included in this public Git repository.
 ## Setup
 
 ```bash
-python -m venv .venv
+sudo apt update && sudo apt install python3.12 python3.12-venv
+python3.12 -m venv .venv
 source .venv/bin/activate
 pip install -U pip
 pip install -r requirements.txt
@@ -38,6 +39,19 @@ Download the corresponding official Wan checkpoint into `checkpoints/`; the
 expected paths are listed in `configs/model_5b.yaml` and
 `configs/model_1p3b.yaml`. ReMind checkpoints and the release dataset are not
 stored in Git; download them from the Hugging Face repositories linked above.
+
+```bash
+# cd Agent_player/ReMind
+
+hf download Wan-AI/Wan2.2-TI2V-5B \
+  --local-dir checkpoints/Wan2.2-TI2V-5B
+
+hf download AppliedIntuitionResearch/ReMind \
+  ReMind-5B.safetensors \
+  ReMind-5b-dmd-ema.safetensors \
+  SHA256SUMS \
+  --local-dir checkpoints/ReMind-5B
+```
 
 ## Inference
 
