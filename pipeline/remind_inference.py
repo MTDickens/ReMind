@@ -370,6 +370,26 @@ def build_pixel_cameras(
     if str(control.get("kind", "clean")) != "camera":
         return extrinsics, intrinsics
 
+    translation_path = control.get("translation_path")
+    if translation_path is not None:
+        translations = torch.as_tensor(translation_path, dtype=torch.float32)
+        if translations.ndim != 2 or translations.shape[1] != 3:
+            raise ValueError(
+                "camera translation_path must have shape [frames, 3], got "
+                f"{tuple(translations.shape)}"
+            )
+        if translations.shape[0] != frames:
+            raise ValueError(
+                "camera translation_path length must match num_frames: "
+                f"{translations.shape[0]} != {frames}"
+            )
+        # ReMind/PRoPE consumes camera<-world view matrices.  The adapter
+        # precompiles PlayWorld movement into the translation column while
+        # leaving rotation fixed, exactly matching GC002's viewing-direction
+        # constraint.
+        extrinsics[0, :, :3, 3] = translations
+        return extrinsics, intrinsics
+
     axis = str(control.get("axis", "yaw"))
     if axis not in {"yaw", "pitch"}:
         raise ValueError("camera axis must be 'yaw' or 'pitch'")
@@ -551,7 +571,10 @@ def build_prompt(
             str(prompt), "none", {}, pixel_frames, latent_frames, chunk_size
         )
     if kind == "camera":
-        if control.get("_trajectory_path"):
+        if (
+            control.get("_trajectory_path")
+            or control.get("translation_path") is not None
+        ):
             camera_prompt = str(prompt)
         else:
             peak = int(
@@ -688,6 +711,7 @@ def generate_from_preset(
     lora_rank: int = 128,
     lora_alpha: int = 128,
     seed_override: int | None = None,
+    preloaded_pipeline: CausalInferencePipeline | None = None,
 ) -> dict[str, Any]:
     frames = int(preset.get("num_frames", 81))
     height = int(preset.get("height", 480))
@@ -696,16 +720,18 @@ def generate_from_preset(
     chunk_size = int(preset.get("chunk_size", 3))
     seed = int(preset.get("seed", 20260711) if seed_override is None else seed_override)
 
-    pipeline = load_dmd_ema_pipeline(
-        config_path=config_path,
-        model_folder=model_folder,
-        base_checkpoint=base_checkpoint,
-        ema_checkpoint=ema_checkpoint,
-        device=device,
-        dtype=dtype,
-        lora_rank=lora_rank,
-        lora_alpha=lora_alpha,
-    )
+    pipeline = preloaded_pipeline
+    if pipeline is None:
+        pipeline = load_dmd_ema_pipeline(
+            config_path=config_path,
+            model_folder=model_folder,
+            base_checkpoint=base_checkpoint,
+            ema_checkpoint=ema_checkpoint,
+            device=device,
+            dtype=dtype,
+            lora_rank=lora_rank,
+            lora_alpha=lora_alpha,
+        )
 
     task = str(preset["task"])
     seed_latent_frames = int(preset["seed_latent_frames"])

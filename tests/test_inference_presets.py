@@ -155,6 +155,36 @@ def test_camera_presets_use_exact_pairfixed_trajectories(name, max_angle, final_
     assert all("camera trajectory is a loop" not in item for item in prompt)
 
 
+def test_playworld_translation_path_keeps_camera_rotation_fixed():
+    control = {
+        "kind": "camera",
+        "translation_path": [
+            [0.0, 0.0, 0.0],
+            [-0.01, 0.0, 0.0],
+            [-0.01, 0.0, -0.02],
+        ],
+    }
+    extrinsics, _ = build_pixel_cameras(
+        control, frames=3, height=480, width=832
+    )
+    assert torch.equal(
+        extrinsics[0, :, :3, :3],
+        torch.eye(3).repeat(3, 1, 1),
+    )
+    assert torch.allclose(
+        extrinsics[0, :, :3, 3],
+        torch.tensor(control["translation_path"]),
+    )
+    prompts = build_prompt(
+        "A museum gallery.",
+        control,
+        pixel_frames=3,
+        latent_frames=3,
+        chunk_size=3,
+    )
+    assert prompts == ["A museum gallery."]
+
+
 def test_checkpoint_directory_resolution(tmp_path):
     checkpoint = tmp_path / "checkpoint"
     checkpoint.mkdir()

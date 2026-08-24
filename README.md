@@ -120,12 +120,13 @@ python inference.py --preset examples/presets/01_latte_occluder_recovery.yaml --
 
 ## Minimal PlayWorld adapter
 
-`player.py` provides a deliberately open-loop PlayWorld integration. It loads a
-task record, uses `image_caption` as ReMind's content-only prompt, runs clean
-I2V inference, and writes `outputs/remind/<task_id>/<task_id>.mp4` plus
-`result.json`. The benchmark objective and dataset actions are recorded but are
-not applied yet, so this adapter is for plumbing checks rather than benchmark
-reporting.
+`player.py` provides an open-loop PlayWorld integration. It loads a task record,
+uses `image_caption` as ReMind's content-only prompt, and writes
+`outputs/remind/<task_id>/<task_id>.mp4` plus `result.json`. Pass
+`--apply-actions` to precompile W/S/A/D dataset actions into a fixed-orientation
+camera path. Long outputs use overlapping 81-frame ReMind windows, reuse the
+loaded model, carry each window's final frame into the next, and remove duplicate
+boundary frames when stitching.
 
 Validate the bundled GC example without loading model weights:
 
@@ -133,6 +134,17 @@ Validate the bundled GC example without loading model weights:
 REMIND_DATA_ROOT="$PWD/example" \
 REMIND_MAPPING_JSON="$PWD/example/GC/001.json" \
 Agent_player/ReMind/run_task.sh GC002 --dry-run
+```
+
+The PlayWorld page's GC002 demo is approximately one minute. Its 36 movement
+tokens divide cleanly into twelve three-token windows; at 16 fps the stitched
+result contains 961 frames (60.06 seconds):
+
+```bash
+REMIND_DATA_ROOT="$PWD/example" \
+REMIND_MAPPING_JSON="$PWD/example/GC/001.json" \
+Agent_player/ReMind/run_task.sh GC002 \
+  --apply-actions --duration-seconds 60 --dry-run
 ```
 
 For inference, set the three checkpoint paths and choose the ReMind Python
@@ -147,6 +159,11 @@ REMIND_DATA_ROOT="$PWD/example" \
 REMIND_MAPPING_JSON="$PWD/example/GC/001.json" \
 Agent_player/ReMind/run_task.sh GC002
 ```
+
+Append `--apply-actions --duration-seconds 60` to the inference command above
+to generate the one-minute GC002 rollout. Twelve five-second segment videos are
+kept under `outputs/remind/GC002/segments/`, and the stitched comparison video
+is `outputs/remind/GC002/GC002.mp4`.
 
 See [`docs/inference.md`](docs/inference.md) for caption and control
 conventions, and [`examples/README.md`](examples/README.md) for the exact page-case seeds,
