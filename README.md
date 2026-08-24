@@ -35,6 +35,22 @@ pip install -r requirements.txt
 pip install -e .
 ```
 
+### Google Colab only: make `nvidia-smi` work in shell sessions
+
+Google Colab may expose its NVIDIA driver libraries outside the default search
+path used by an SSH or terminal shell. If `nvidia-smi` reports that it cannot
+find `libnvidia-ml.so`, persist the Colab library paths in `~/.bashrc`:
+
+```bash
+COLAB_NVML_EXPORT='export LD_LIBRARY_PATH="/usr/lib64-nvidia:/usr/local/nvidia/lib:/usr/local/nvidia/lib64${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}"'
+grep -qxF "$COLAB_NVML_EXPORT" ~/.bashrc || printf '%s\n' "$COLAB_NVML_EXPORT" >> ~/.bashrc
+source ~/.bashrc
+nvidia-smi
+```
+
+This workaround is only for a Google Colab managed runtime. It is not a driver
+installation procedure for a local machine or a standalone Docker container.
+
 Download the corresponding official Wan checkpoint into `checkpoints/`; the
 expected paths are listed in `configs/model_5b.yaml` and
 `configs/model_1p3b.yaml`. ReMind checkpoints and the release dataset are not
